@@ -1,5 +1,7 @@
 package cn.lwl.scala
 
+import scala.collection.Iterator
+
 /**
  * scala中的集合操作
  */
@@ -85,14 +87,17 @@ object ChapterFour {
     val tuples = flatMaps.map((_, 1))
     tuples.foreach(println)
 
+    // 使用迭代器的好处是,中间产生的结果不会占用多余内存,原因是迭代器产生的过程中不会发生运算
     val ite = strings.iterator
     val thenMap = ite.flatMap(s => s.split(" "))
-    val functions = thenMap.map((_, 1))
-    functions.foreach(println)
+    val tuplesIterator = thenMap.map((_, 1))
+    while(tuplesIterator.hasNext){
+      val tuple = tuplesIterator.next()
+      println(tuple)
+    }
     // 迭代器 迭代到末尾了，无法再使用
     val thatMap = ite.map(s => s"$s,!")
     thatMap.foreach(println)
     // todo 理清iterator源码
-
   }
 }
